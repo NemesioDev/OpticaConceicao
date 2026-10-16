@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { LOGO_URL } from '../lib/supabase';
 
 interface HeaderProps {
   paginaAtual: string;
@@ -49,7 +50,12 @@ export const Header: React.FC<HeaderProps> = ({ paginaAtual, navegarPara }) => {
             onClick={() => handleNavegacao('home')} 
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
           >
-            <img src="/assets/images/logo.png" alt="Óptica Conceição" className="brand-logo-img" />
+            <img 
+              src={LOGO_URL} 
+              alt="Óptica Conceição" 
+              className="brand-logo-img" 
+              onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/assets/images/logo.png'; }}
+            />
           </button>
 
           {/* Menu Desktop */}

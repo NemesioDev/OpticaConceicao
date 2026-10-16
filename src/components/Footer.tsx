@@ -1,4 +1,5 @@
 import React from 'react';
+import { LOGO_URL } from '../lib/supabase';
 
 interface FooterProps {
   navegarPara: (pagina: string) => void;
@@ -12,7 +13,12 @@ export const Footer: React.FC<FooterProps> = ({ navegarPara }) => {
           <div>
             <div style={{ marginBottom: '1.25rem' }}>
               <div className="brand-logo-darkbg">
-                <img src="/assets/images/logo.png" alt="Óptica Conceição" className="brand-logo-img" />
+                <img 
+                  src={LOGO_URL} 
+                  alt="Óptica Conceição" 
+                  className="brand-logo-img" 
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/assets/images/logo.png'; }}
+                />
               </div>
             </div>
             <p style={{ fontSize: '0.9rem', lineHeight: '1.7', color: '#94A3B8' }}>

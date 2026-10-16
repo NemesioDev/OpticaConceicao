@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useCatalog } from '../context/CatalogContext';
 import { Produto } from '../types/produto';
 import { AdminProductModal } from '../components/AdminProductModal';
+import { LOGO_URL } from '../lib/supabase';
 
 interface AdminPageProps {
   navegarPara: (pagina: string) => void;
@@ -66,7 +67,12 @@ export const AdminPage: React.FC<AdminPageProps> = ({ navegarPara }) => {
       <aside className={`admin-sidebar-responsive ${sidebarAbertaMobile ? 'mobile-open' : ''}`}>
         <div style={{ padding: '1.25rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <div style={{ background: '#FFFFFF', padding: '0.4rem 0.75rem', borderRadius: 'var(--radius-sm)', display: 'flex', justifyContent: 'center' }}>
-            <img src="/assets/images/logo.png" alt="Óptica Conceição" style={{ maxHeight: '38px', objectFit: 'contain' }} />
+            <img 
+              src={LOGO_URL} 
+              alt="Óptica Conceição" 
+              style={{ maxHeight: '38px', objectFit: 'contain' }} 
+              onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/assets/images/logo.png'; }}
+            />
           </div>
         </div>
 

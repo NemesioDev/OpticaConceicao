@@ -6,6 +6,11 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIU
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 /**
+ * URL Oficial da Logo no Bucket do Supabase Storage
+ */
+export const LOGO_URL = `${supabaseUrl}/storage/v1/object/public/fotos-armacoes/branding/logo.png`;
+
+/**
  * Faz upload de uma imagem (File ou base64) para o bucket "fotos-armacoes" do Supabase Storage
  * e retorna a URL pública acessível.
  */

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCatalog } from '../context/CatalogContext';
+import { LOGO_URL } from '../lib/supabase';
 
 interface LoginPageProps {
   navegarPara: (pagina: string) => void;
@@ -31,7 +32,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navegarPara }) => {
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle at top right, #1A3B8B 0%, #091533 100%)', padding: '1.5rem' }}>
       <div style={{ background: '#FFFFFF', width: '100%', maxWidth: '440px', borderRadius: 'var(--radius-lg)', padding: '2.75rem 2.25rem', boxShadow: '0 25px 60px rgba(9, 21, 51, 0.45)', border: '1px solid rgba(245, 197, 68, 0.4)', textAlign: 'center' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <img src="/assets/images/logo.png" alt="Óptica Conceição" style={{ maxHeight: '60px', maxWidth: '100%', objectFit: 'contain' }} />
+          <img 
+            src={LOGO_URL} 
+            alt="Óptica Conceição" 
+            style={{ maxHeight: '60px', maxWidth: '100%', objectFit: 'contain' }} 
+            onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/assets/images/logo.png'; }}
+          />
         </div>
 
         <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
