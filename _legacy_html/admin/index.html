@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo — Óptica Conceição</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="admin-wrapper">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand" style="background: rgba(255, 255, 255, 0.04); padding: 1.25rem;">
+        <div style="background: #FFFFFF; padding: 0.4rem 0.75rem; border-radius: var(--radius-sm); width: 100%; display: flex; align-items: center; justify-content: center;">
+          <img src="../assets/images/logo.png" alt="Óptica Conceição" style="max-height: 38px; width: auto; object-fit: contain;" />
+        </div>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li>
+          <a href="index.html" class="sidebar-link active">
+            <span>👓</span> Gerenciar Catálogo
+          </a>
+        </li>
+        <li>
+          <a href="../catalogo.html" target="_blank" class="sidebar-link">
+            <span>👁️</span> Ver Catálogo Público ↗
+          </a>
+        </li>
+        <li>
+          <a href="../index.html" target="_blank" class="sidebar-link">
+            <span>🌐</span> Ver Site Oficial ↗
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button onclick="resetarParaDadosExemplo()" class="btn btn-outline-gold btn-sm" style="width: 100%; color: #CBD5E1; margin-bottom: 0.75rem; font-size: 0.75rem;">
+          ↻ Restaurar Catálogo Demo
+        </button>
+        <button onclick="logoutAdmin()" class="btn btn-dark btn-sm" style="width: 100%; background: rgba(255,255,255,0.08);">
+          🚪 Sair do Painel
+        </button>
+      </div>
+    </aside>
+
+    <!-- Área Principal -->
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-title-area">
+          <h2>Catálogo de Produtos & Armações</h2>
+        </div>
+        <div class="admin-topbar-actions">
+          <button id="btn-novo-produto" class="btn btn-gold btn-sm">
+            <span>➕</span> Cadastrar Nova Armação
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-content-area">
+        <!-- Métricas Rápidas -->
+        <div id="admin-metrics-container" class="metrics-row">
+          <div class="metric-card">
+            <div class="metric-icon-box metric-icon-gold">👓</div>
+            <div class="metric-data">
+              <h3 id="metric-total">0</h3>
+              <p>Total de Produtos</p>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-box metric-icon-green">✓</div>
+            <div class="metric-data">
+              <h3 id="metric-ativos">0</h3>
+              <p>Armações Ativas</p>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-box metric-icon-blue">★</div>
+            <div class="metric-data">
+              <h3 id="metric-destaques">0</h3>
+              <p>Destaques na Vitrine</p>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-box metric-icon-gold">🏷️</div>
+            <div class="metric-data">
+              <h3 id="metric-marcas">0</h3>
+              <p>Marcas Cadastradas</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabela de Produtos -->
+        <div class="table-card">
+          <div class="table-header-bar">
+            <div style="flex: 1; max-width: 400px; position: relative;">
+              <input 
+                type="text" 
+                id="admin-table-search" 
+                class="form-control" 
+                placeholder="Filtrar por nome, marca ou código..."
+                style="padding-left: 2.2rem; font-size: 0.875rem;"
+              />
+              <span style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--color-text-light);">🔍</span>
+            </div>
+
+            <div style="font-size: 0.85rem; color: var(--color-text-muted);">
+              Clique na estrela para alternar destaques na vitrine inicial da loja.
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Armação / SKU</th>
+                  <th>Marca</th>
+                  <th>Categoria</th>
+                  <th>Formato</th>
+                  <th>Preço Ref.</th>
+                  <th>Destaque / Status</th>
+                  <th style="width: 100px;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="admin-products-table-body">
+                <!-- Preenchido via js/admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal de Criação / Edição de Produto -->
+  <div id="admin-product-modal" class="modal-overlay" aria-hidden="true" role="dialog">
+    <div class="modal-card admin-modal-card">
+      <button id="admin-modal-close" class="modal-close" aria-label="Fechar Modal">✕</button>
+      
+      <div style="padding: 2.25rem;">
+        <h2 id="admin-modal-title" style="font-size: 1.4rem; margin-bottom: 0.25rem; font-family: var(--font-sans);">
+          Cadastrar Nova Armação
+        </h2>
+        <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1.5rem;">
+          Preencha as especificações para atualizar o catálogo digital da Óptica Conceição.
+        </p>
+
+        <form id="admin-product-form">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="prod-codigo" class="form-label">Código / SKU *</label>
+              <input type="text" id="prod-codigo" class="form-control" required placeholder="ex: OC-109">
+            </div>
+
+            <div class="form-group">
+              <label for="prod-nome" class="form-label">Nome do Modelo *</label>
+              <input type="text" id="prod-nome" class="form-control" required placeholder="ex: Ray-Ban Round Metal Classic">
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label for="prod-marca" class="form-label">Marca *</label>
+              <input type="text" id="prod-marca" class="form-control" required placeholder="ex: Ray-Ban, Vogue, Oakley">
+            </div>
+
+            <div class="form-group">
+              <label for="prod-categoria" class="form-label">Categoria *</label>
+              <select id="prod-categoria" class="form-control" required>
+                <option value="Grau">Grau</option>
+                <option value="Sol">Sol</option>
+                <option value="Infantil">Infantil</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="prod-formato" class="form-label">Formato do Aro *</label>
+              <select id="prod-formato" class="form-control" required>
+                <option value="Redondo">Redondo</option>
+                <option value="Quadrado">Quadrado</option>
+                <option value="Aviador">Aviador</option>
+                <option value="Gatinho">Gatinho</option>
+                <option value="Hexagonal">Hexagonal</option>
+                <option value="Retangular">Retangular</option>
+                <option value="Oval">Oval</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label for="prod-genero" class="form-label">Gênero</label>
+              <select id="prod-genero" class="form-control">
+                <option value="Unissex">Unissex</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Infantil">Infantil</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="prod-material" class="form-label">Material da Armação</label>
+              <input type="text" id="prod-material" class="form-control" placeholder="ex: Acetato Italiano, Titânio">
+            </div>
+
+            <div class="form-group">
+              <label for="prod-preco" class="form-label">Preço de Referência (R$)</label>
+              <input type="number" step="0.01" id="prod-preco" class="form-control" placeholder="ex: 580.00">
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label for="prod-med-lente" class="form-label">Lente (mm)</label>
+              <input type="text" id="prod-med-lente" class="form-control" placeholder="52mm">
+            </div>
+            <div class="form-group">
+              <label for="prod-med-ponte" class="form-label">Ponte (mm)</label>
+              <input type="text" id="prod-med-ponte" class="form-control" placeholder="18mm">
+            </div>
+            <div class="form-group">
+              <label for="prod-med-haste" class="form-label">Haste (mm)</label>
+              <input type="text" id="prod-med-haste" class="form-control" placeholder="140mm">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="prod-rostos" class="form-label">Formatos de Rosto Recomendados (separados por vírgula)</label>
+            <input type="text" id="prod-rostos" class="form-control" placeholder="ex: Oval, Redondo, Quadrado">
+          </div>
+
+          <div class="form-group">
+            <label for="prod-descricao" class="form-label">Descrição & Destaques do Produto</label>
+            <textarea id="prod-descricao" class="form-control" rows="3" placeholder="Detalhes de estilo, conforto, acabamento e tecnologia das lentes..."></textarea>
+          </div>
+
+          <!-- Upload de Imagem da Armação -->
+          <div class="form-group">
+            <label class="form-label">Foto da Armação / Óculos *</label>
+            
+            <input type="file" id="prod-img-file" accept="image/*" style="display: none;">
+            <input type="hidden" id="prod-img-data" value="">
+
+            <!-- Área de Upload (Dropzone) -->
+            <div id="dropzone-area" class="upload-dropzone" onclick="document.getElementById('prod-img-file').click()">
+              <div class="upload-dropzone-icon">📷</div>
+              <div class="upload-dropzone-title">Clique para selecionar ou arraste a foto aqui</div>
+              <div class="upload-dropzone-sub">Formatos suportados: JPG, PNG, WEBP (Otimização automática para carregamento rápido)</div>
+            </div>
+
+            <!-- Card de Prévia da Imagem Selecionada -->
+            <div id="preview-container" class="upload-preview-container">
+              <img id="preview-img-el" class="upload-preview-thumb" src="" alt="Foto da armação" />
+              <div class="upload-preview-info">
+                <strong id="preview-filename">foto_armacao.jpg</strong>
+                <span id="preview-filesize">Foto carregada com sucesso</span>
+              </div>
+              <div class="upload-preview-actions">
+                <button type="button" class="btn btn-dark btn-sm" onclick="document.getElementById('prod-img-file').click()">
+                  🔄 Trocar Foto
+                </button>
+                <button type="button" class="btn btn-outline-gold btn-sm" style="color: var(--color-danger); border-color: var(--color-danger);" onclick="removerFotoUpload()">
+                  ✕ Remover
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap;">
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="prod-destaque">
+              <strong>Destacar na Vitrine da Home</strong>
+            </label>
+
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="prod-novidade">
+              <span>Marcar como Lançamento/Novo</span>
+            </label>
+
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="prod-ativo" checked>
+              <span>Ativo no Catálogo</span>
+            </label>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 1rem; border-top: 1px solid var(--color-border); padding-top: 1.25rem;">
+            <button type="button" class="btn btn-outline-gold" onclick="document.getElementById('admin-product-modal').classList.remove('active')">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-gold">
+              Salvar Armação no Catálogo
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/db.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

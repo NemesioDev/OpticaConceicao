@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Óculos & Armações — Óptica Conceição</title>
+  <meta name="description" content="Navegue pelo catálogo completo de armações de grau e óculos de sol da Óptica Conceição. Filtre por marca, formato de rosto, material e encontre o modelo perfeito.">
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/catalogo.css">
+</head>
+<body>
+
+  <!-- Barra Superior -->
+  <aside class="top-bar" aria-label="Informações de Contato">
+    <div class="container">
+      <div class="top-bar-item">
+        <span>📍</span> Rua Capitão Valdemar de Lima, 116 C — Centro, Maracanaú - CE
+      </div>
+      <div class="top-bar-links">
+        <a href="https://wa.me/558588220984" target="_blank" rel="noopener noreferrer" class="top-bar-item">
+          <span>💬</span> (85) 8822-0984
+        </a>
+        <a href="admin/login.html" class="top-bar-item" style="color: var(--color-gold-light);">
+          <span>🔒</span> Acesso Lojista
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="brand-logo" aria-label="Óptica Conceição Página Inicial">
+        <img src="assets/images/logo.png" alt="Óptica Conceição" class="brand-logo-img" />
+      </a>
+
+      <nav aria-label="Navegação Principal">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Início</a></li>
+          <li><a href="catalogo.html" class="nav-link active">Catálogo Completo</a></li>
+          <li><a href="catalogo.html?categoria=Grau" class="nav-link">Grau</a></li>
+          <li><a href="catalogo.html?categoria=Sol" class="nav-link">Óculos de Sol</a></li>
+          <li><a href="index.html#diferenciais" class="nav-link">Diferenciais</a></li>
+          <li><a href="index.html#localizacao" class="nav-link">Onde Estamos</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://wa.me/558588220984?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20modelos%20do%20cat%C3%A1logo." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
+          <span>💬</span> WhatsApp: (85) 8822-0984
+        </a>
+      </div>
+
+      <button class="mobile-toggle" aria-label="Abrir menu mobile">☰</button>
+    </div>
+  </header>
+
+  <!-- Cabeçalho do Catálogo -->
+  <section class="catalog-page-header">
+    <div class="container">
+      <div class="catalog-header-content">
+        <span class="subheading-gold" style="color: var(--color-gold-light);">Coleção Completa</span>
+        <h1 class="heading-section">Catálogo de Armações & Óculos</h1>
+        <p>Utilize os filtros abaixo para encontrar o modelo que harmoniza perfeitamente com a geometria do seu rosto e sua personalidade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toolbar de Busca e Ordenação -->
+  <div class="catalog-toolbar">
+    <div class="container">
+      <div class="toolbar-grid">
+        <div class="search-box-wrapper">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="text" 
+            id="catalog-search-input" 
+            class="search-input" 
+            placeholder="Buscar por marca, modelo, formato ou código..."
+            aria-label="Buscar produtos no catálogo"
+          />
+        </div>
+
+        <div class="toolbar-stats">
+          <span id="catalog-results-count">Carregando armações...</span>
+        </div>
+
+        <div class="toolbar-actions">
+          <button id="btn-mobile-filters" class="btn btn-outline-gold btn-sm mobile-filter-btn">
+            ⚡ Filtros
+          </button>
+
+          <select id="sort-products-select" class="sort-select" aria-label="Ordenar produtos">
+            <option value="relevancia">Destaques Primeiro</option>
+            <option value="preco-asc">Menor Preço Referencial</option>
+            <option value="preco-desc">Maior Preço Referencial</option>
+            <option value="nome">Nome (A - Z)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Layout Principal do Catálogo -->
+  <main class="container">
+    <div class="catalog-layout">
+      <!-- Barra Lateral de Filtros -->
+      <aside class="filters-sidebar" aria-label="Filtros de Produtos">
+        <div class="filters-header">
+          <h3>
+            <span>⚙️</span> Filtros de Busca
+          </h3>
+          <button id="btn-reset-filters" class="btn-reset-filters">Limpar Todos</button>
+        </div>
+
+        <!-- Filtro: Categoria -->
+        <div class="filter-group">
+          <div class="filter-group-title">Tipo de Óculos</div>
+          <div class="chips-container">
+            <button class="filter-chip active" data-filter-type="categoria" data-filter-value="todos">Todos</button>
+            <button class="filter-chip" data-filter-type="categoria" data-filter-value="Grau">Grau</button>
+            <button class="filter-chip" data-filter-type="categoria" data-filter-value="Sol">Sol</button>
+            <button class="filter-chip" data-filter-type="categoria" data-filter-value="Infantil">Infantil</button>
+          </div>
+        </div>
+
+        <!-- Filtro: Formato da Armação -->
+        <div class="filter-group">
+          <div class="filter-group-title">Formato do Aro</div>
+          <div class="chips-container">
+            <button class="filter-chip active" data-filter-type="formato" data-filter-value="todos">Todos</button>
+            <button class="filter-chip" data-filter-type="formato" data-filter-value="Redondo">Redondo</button>
+            <button class="filter-chip" data-filter-type="formato" data-filter-value="Quadrado">Quadrado</button>
+            <button class="filter-chip" data-filter-type="formato" data-filter-value="Aviador">Aviador</button>
+            <button class="filter-chip" data-filter-type="formato" data-filter-value="Gatinho">Gatinho</button>
+            <button class="filter-chip" data-filter-type="formato" data-filter-value="Hexagonal">Hexagonal</button>
+            <button class="filter-chip" data-filter-type="formato" data-filter-value="Retangular">Retangular</button>
+          </div>
+        </div>
+
+        <!-- Filtro: Gênero -->
+        <div class="filter-group">
+          <div class="filter-group-title">Gênero / Linha</div>
+          <div class="chips-container">
+            <button class="filter-chip active" data-filter-type="genero" data-filter-value="todos">Todos</button>
+            <button class="filter-chip" data-filter-type="genero" data-filter-value="Feminino">Feminino</button>
+            <button class="filter-chip" data-filter-type="genero" data-filter-value="Masculino">Masculino</button>
+            <button class="filter-chip" data-filter-type="genero" data-filter-value="Unissex">Unissex</button>
+          </div>
+        </div>
+
+        <!-- Filtro: Marca -->
+        <div class="filter-group">
+          <div class="filter-group-title">Marca</div>
+          <select id="filter-marca" class="form-control" style="font-size: 0.85rem;" aria-label="Filtrar por marca">
+            <option value="todos">Todas as Marcas</option>
+          </select>
+        </div>
+
+        <!-- Filtro: Material -->
+        <div class="filter-group">
+          <div class="filter-group-title">Material</div>
+          <select id="filter-material" class="form-control" style="font-size: 0.85rem;" aria-label="Filtrar por material">
+            <option value="todos">Todos os Materiais</option>
+            <option value="Acetato">Acetato Italiano</option>
+            <option value="Titânio">Titânio Puro</option>
+            <option value="Metal">Metal Nobre / Dourado</option>
+            <option value="Injetado">Polímero / Injetado / Flex</option>
+          </select>
+        </div>
+
+        <!-- Ajuda com Formato de Rosto -->
+        <div style="background: rgba(197, 160, 89, 0.1); border: 1px solid rgba(197, 160, 89, 0.3); border-radius: var(--radius-md); padding: 1rem; margin-top: 1.5rem;">
+          <h4 style="font-size: 0.85rem; color: var(--color-gold-hover); margin-bottom: 0.3rem;">💡 Dica de Especialista</h4>
+          <p style="font-size: 0.775rem; color: var(--color-text-main); line-height: 1.5;">
+            Rostos redondos combinam com formatos retangulares e quadrados. Rostos quadrados harmonizam perfeitamente com armações redondas ou aviador!
+          </p>
+        </div>
+      </aside>
+
+      <!-- Conteúdo de Produtos -->
+      <section class="catalog-content">
+        <div id="catalog-products-grid" class="products-grid">
+          <!-- Renderizado via js/catalogo.js -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal Detalhes do Produto -->
+  <div id="product-modal" class="modal-overlay" aria-hidden="true" role="dialog">
+    <div class="modal-card">
+      <button id="modal-close-btn" class="modal-close" aria-label="Fechar Modal">✕</button>
+      <div id="modal-product-details">
+        <!-- Preenchido dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="margin-bottom: 1.25rem;">
+            <div class="brand-logo-darkbg">
+              <img src="assets/images/logo.png" alt="Óptica Conceição" class="brand-logo-img" />
+            </div>
+          </div>
+          <p style="font-size: 0.9rem; line-height: 1.7; color: #94A3B8;">
+            Tradição, saúde visual e estética refinada. A Óptica Conceição oferece um catálogo selecionado das marcas mais prestigiadas do mundo.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Página Inicial</a></li>
+            <li><a href="catalogo.html">Catálogo Completo</a></li>
+            <li><a href="catalogo.html?categoria=Grau">Armações de Grau</a></li>
+            <li><a href="catalogo.html?categoria=Sol">Óculos de Sol</a></li>
+            <li><a href="index.html#exame">Exame de Vista</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Atendimento</h4>
+          <ul class="footer-links">
+            <li><a href="https://wa.me/558588220984" target="_blank" rel="noopener noreferrer">WhatsApp: (85) 8822-0984</a></li>
+            <li><a href="index.html#localizacao">Rua Capitão Valdemar de Lima, 116 C</a></li>
+            <li><a href="index.html#localizacao">Centro, Maracanaú - CE</a></li>
+            <li><a href="admin/login.html">Área do Administrador</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Visite Nossa Loja</h4>
+          <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Rua Capitão Valdemar de Lima, 116 C — Centro</p>
+          <p style="font-size: 0.85rem; color: var(--color-gold-light);">Seg a Sex 08h-18h • Sáb 08h-13h</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Óptica Conceição. Todos os direitos reservados.</div>
+        <div>Catálogo digital para demonstração e reserva física.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/catalogo.js"></script>
+</body>
+</html>

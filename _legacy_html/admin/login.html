@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso Administrativo — Óptica Conceição</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-login-body">
+
+  <div class="login-card">
+    <div style="margin-bottom: 1.5rem;">
+      <img src="../assets/images/logo.png" alt="Óptica Conceição" style="max-height: 60px; max-width: 100%; object-fit: contain;" />
+    </div>
+
+    <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 2rem;">Painel de Gestão do Catálogo & Vitrine</p>
+
+    <div id="login-error-msg" style="display: none; background: #FEE2E2; color: #B91C1C; padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.85rem; margin-bottom: 1.25rem;"></div>
+
+    <form id="admin-login-form">
+      <div class="form-group">
+        <label for="login-user" class="form-label">Usuário</label>
+        <input type="text" id="login-user" class="form-control" placeholder="admin" value="admin" required>
+      </div>
+
+      <div class="form-group">
+        <label for="login-password" class="form-label">Senha de Acesso</label>
+        <input type="password" id="login-password" class="form-control" placeholder="••••••••" value="admin123" required>
+      </div>
+
+      <div style="background: rgba(197, 160, 89, 0.1); border: 1px dashed var(--color-gold); padding: 0.65rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.775rem; color: var(--color-primary); text-align: left;">
+        <strong>Credenciais Padrão:</strong><br>
+        Usuário: <code>admin</code> | Senha: <code>admin123</code>
+      </div>
+
+      <button type="submit" class="btn btn-gold" style="width: 100%; margin-bottom: 1rem;">
+        Entrar no Painel →
+      </button>
+
+      <a href="../index.html" style="font-size: 0.85rem; color: var(--color-text-muted); text-decoration: none;">
+        ← Voltar para o Site Principal
+      </a>
+    </form>
+  </div>
+
+  <script src="../js/db.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>
