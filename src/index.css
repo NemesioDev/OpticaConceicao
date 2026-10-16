@@ -581,3 +581,228 @@ h1, h2, h3, h4 {
 .brand-logo-darkbg .brand-logo-img {
   height: 40px;
 }
+
+/* ==========================================================================
+   REGRAS DE RESPONSIVIDADE & MOBILE FIRST
+   ========================================================================== */
+
+/* Navbar Responsiva */
+.header-container-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 85px;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: var(--color-primary);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.mobile-nav-drawer {
+  display: none;
+}
+
+/* Catálogo Responsivo */
+.catalog-responsive-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2.5rem;
+}
+
+.mobile-filter-toggle-btn {
+  display: none;
+}
+
+/* Modal Responsivo */
+.modal-grid-responsive {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  padding: 2.5rem;
+}
+
+/* Admin Responsivo */
+.admin-layout-responsive {
+  display: flex;
+  min-height: 100vh;
+  background: #F4F6F9;
+}
+
+.admin-sidebar-responsive {
+  width: 260px;
+  background: var(--color-primary-dark);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: transform var(--transition-smooth);
+}
+
+.admin-mobile-header {
+  display: none;
+}
+
+.admin-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Localização */
+.location-grid-responsive {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+/* --- MEDIA QUERIES (TABLETS & SMARTPHONES: < 960px) --- */
+@media (max-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .hero-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-image-wrapper img {
+    height: 320px;
+  }
+
+  .catalog-responsive-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .mobile-filter-toggle-btn {
+    display: inline-flex;
+  }
+
+  .filters-sidebar-responsive {
+    display: none;
+  }
+
+  .filters-sidebar-responsive.mobile-visible {
+    display: block;
+    margin-bottom: 1.5rem;
+    animation: modalScale 0.3s ease;
+  }
+
+  .location-grid-responsive {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .modal-grid-responsive {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* --- MEDIA QUERIES (SMARTPHONES: < 768px) --- */
+@media (max-width: 768px) {
+  .desktop-nav, .desktop-cta {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .mobile-nav-drawer {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    border-top: 1px solid var(--color-border);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    gap: 0.75rem;
+  }
+
+  .mobile-nav-link {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 0.75rem 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    border-bottom: 1px solid var(--color-border-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+  }
+
+  .mobile-nav-link.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+  }
+
+  /* Admin em Smartphone */
+  .admin-layout-responsive {
+    flex-direction: column;
+  }
+
+  .admin-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .admin-sidebar-responsive {
+    width: 100%;
+    display: none;
+  }
+
+  .admin-sidebar-responsive.mobile-open {
+    display: flex;
+  }
+
+  /* Footer em coluna única */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* Reduzir paddings gerais para caber em telas estreitas */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hero-section {
+    padding: 3.5rem 0 4.5rem;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .modal-card {
+    max-height: 92vh;
+    border-radius: var(--radius-md);
+  }
+}
+

@@ -157,8 +157,8 @@ export const HomePage: React.FC<HomePageProps> = ({ navegarPara }) => {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2.5rem', alignItems: 'center' }}>
-            <div style={{ background: 'var(--color-bg)', padding: '2.5rem', borderRadius: 'var(--radius-lg)', border: '1px solid var(--color-border)' }}>
+          <div className="location-grid-responsive">
+            <div style={{ background: 'var(--color-bg)', padding: '2rem', borderRadius: 'var(--radius-lg)', border: '1px solid var(--color-border)' }}>
               <h3 style={{ fontSize: '1.4rem', marginBottom: '1.25rem' }}>Atendimento Presencial</h3>
               <p style={{ marginBottom: '1rem', color: 'var(--color-text-muted)' }}>
                 <strong>📍 Endereço:</strong><br />

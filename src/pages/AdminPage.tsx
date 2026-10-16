@@ -47,17 +47,30 @@ export const AdminPage: React.FC<AdminPageProps> = ({ navegarPara }) => {
     }
   };
 
+  const [sidebarAbertaMobile, setSidebarAbertaMobile] = useState(false);
+
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#F4F6F9' }}>
+    <div className="admin-layout-responsive">
+      {/* Barra de Topo no Mobile */}
+      <div className="admin-mobile-header">
+        <button 
+          className="btn btn-dark btn-sm"
+          onClick={() => setSidebarAbertaMobile(!sidebarAbertaMobile)}
+        >
+          {sidebarAbertaMobile ? '✕ Fechar Menu' : '☰ Menu do Painel'}
+        </button>
+        <span style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--color-primary)' }}>Admin Conceição</span>
+      </div>
+
       {/* Sidebar Admin */}
-      <aside style={{ width: '260px', background: 'var(--color-primary-dark)', color: '#FFFFFF', display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
-        <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+      <aside className={`admin-sidebar-responsive ${sidebarAbertaMobile ? 'mobile-open' : ''}`}>
+        <div style={{ padding: '1.25rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <div style={{ background: '#FFFFFF', padding: '0.4rem 0.75rem', borderRadius: 'var(--radius-sm)', display: 'flex', justifyContent: 'center' }}>
             <img src="/assets/images/logo.png" alt="Óptica Conceição" style={{ maxHeight: '38px', objectFit: 'contain' }} />
           </div>
         </div>
 
-        <div style={{ padding: '1.5rem 0', flexGrow: 1 }}>
+        <div style={{ padding: '1rem 0', flexGrow: 1 }}>
           <button 
             style={{ width: '100%', padding: '0.85rem 1.5rem', background: 'rgba(255,255,255,0.08)', border: 'none', borderLeft: '3px solid var(--color-gold)', color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', textAlign: 'left', fontWeight: 600, fontSize: '0.9rem' }}
           >
@@ -162,10 +175,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ navegarPara }) => {
               </span>
             </div>
 
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-              <thead>
-                <tr style={{ background: '#F8FAFC', borderBottom: '1px solid var(--color-border)' }}>
-                  <th style={{ padding: '0.85rem 1.25rem', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Armação / SKU</th>
+            <div className="admin-table-scroll">
+              <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <thead>
+                  <tr style={{ background: '#F8FAFC', borderBottom: '1px solid var(--color-border)' }}>
+                    <th style={{ padding: '0.85rem 1.25rem', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Armação / SKU</th>
                   <th style={{ padding: '0.85rem 1.25rem', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Marca</th>
                   <th style={{ padding: '0.85rem 1.25rem', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Categoria</th>
                   <th style={{ padding: '0.85rem 1.25rem', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>Formato</th>
@@ -251,6 +265,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ navegarPara }) => {
                 )}
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       </main>

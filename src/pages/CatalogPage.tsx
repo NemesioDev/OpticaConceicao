@@ -71,56 +71,66 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ categoriaInicial = 'to
     setOrdenacao('relevancia');
   };
 
+  const [filtrosAbertosMobile, setFiltrosAbertosMobile] = useState(false);
+
   return (
     <main>
       {/* Header do Catálogo */}
-      <section style={{ background: 'linear-gradient(135deg, #091533, #1A3B8B)', padding: '4rem 0 3rem', color: '#FFFFFF', textAlign: 'center' }}>
+      <section style={{ background: 'linear-gradient(135deg, #091533, #1A3B8B)', padding: '3.5rem 1rem 2.5rem', color: '#FFFFFF', textAlign: 'center' }}>
         <div className="container">
           <span className="subheading-gold" style={{ color: 'var(--color-gold)' }}>Coleção Exclusiva</span>
-          <h1 style={{ color: '#FFFFFF', fontSize: '2.4rem', marginBottom: '0.75rem' }}>Catálogo de Armações & Óculos</h1>
-          <p style={{ color: '#CBD5E1', maxWidth: '650px', margin: '0 auto' }}>
+          <h1 style={{ color: '#FFFFFF', fontSize: 'clamp(1.8rem, 4vw, 2.4rem)', marginBottom: '0.75rem' }}>Catálogo de Armações & Óculos</h1>
+          <p style={{ color: '#CBD5E1', maxWidth: '650px', margin: '0 auto', fontSize: '0.95rem' }}>
             Use os filtros inteligentes para escolher o modelo que harmoniza com a geometria do seu rosto.
           </p>
         </div>
       </section>
 
       {/* Toolbar */}
-      <div style={{ background: '#FFFFFF', borderBottom: '1px solid var(--color-border)', padding: '1.25rem 0', position: 'sticky', top: '85px', zIndex: 100 }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-          <div style={{ flex: 1, minWidth: '280px', maxWidth: '500px' }}>
+      <div style={{ background: '#FFFFFF', borderBottom: '1px solid var(--color-border)', padding: '1rem 0', position: 'sticky', top: '85px', zIndex: 100 }}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <div style={{ flex: 1, minWidth: '240px' }}>
             <input 
               type="text" 
               value={busca}
               onChange={e => setBusca(e.target.value)}
-              placeholder="🔍 Buscar por modelo, código, formato ou marca..."
-              style={{ width: '100%', padding: '0.75rem 1.25rem', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-border)', outline: 'none', background: '#F8FAFC' }}
+              placeholder="🔍 Buscar modelo, aro, marca..."
+              style={{ width: '100%', padding: '0.65rem 1rem', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-border)', outline: 'none', background: '#F8FAFC', fontSize: '0.9rem' }}
             />
           </div>
 
-          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>
-            <strong style={{ color: 'var(--color-primary-dark)' }}>{produtosFiltrados.length}</strong> armações encontradas
-          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', width: 'auto' }}>
+            {/* Botão de Filtros no Mobile */}
+            <button 
+              className="btn btn-outline-gold btn-sm mobile-filter-toggle-btn"
+              onClick={() => setFiltrosAbertosMobile(!filtrosAbertosMobile)}
+            >
+              ⚡ {filtrosAbertosMobile ? 'Fechar Filtros' : 'Filtrar Armações'}
+            </button>
 
-          <div>
+            <div style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
+              <strong>{produtosFiltrados.length}</strong> modelos
+            </div>
+
             <select 
               value={ordenacao} 
               onChange={e => setOrdenacao(e.target.value as any)}
-              style={{ padding: '0.65rem 1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', outline: 'none', cursor: 'pointer' }}
+              style={{ padding: '0.55rem 0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', outline: 'none', cursor: 'pointer', fontSize: '0.85rem' }}
             >
-              <option value="relevancia">Destaques Primeiro</option>
+              <option value="relevancia">Destaques</option>
               <option value="preco-asc">Menor Preço</option>
               <option value="preco-desc">Maior Preço</option>
-              <option value="nome">Nome (A - Z)</option>
+              <option value="nome">A - Z</option>
             </select>
           </div>
         </div>
       </div>
 
       {/* Conteúdo Principal com Barra Lateral de Filtros */}
-      <div className="container" style={{ padding: '3rem 1.5rem 5rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '2.5rem' }}>
+      <div className="container" style={{ padding: '2rem 1.5rem 5rem' }}>
+        <div className="catalog-responsive-layout">
           {/* Sidebar de Filtros */}
-          <aside style={{ background: '#FFFFFF', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', padding: '1.5rem', height: 'fit-content' }}>
+          <aside className={`filters-sidebar-responsive ${filtrosAbertosMobile ? 'mobile-visible' : ''}`}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem', marginBottom: '1.25rem' }}>
               <h3 style={{ fontSize: '1.1rem' }}>⚙️ Filtros</h3>
               <button onClick={limparFiltros} style={{ background: 'none', border: 'none', color: 'var(--color-gold-hover)', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer', textDecoration: 'underline' }}>

@@ -28,10 +28,10 @@ export const ProductModal: React.FC = () => {
           ✕
         </button>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2.5rem', padding: '2.5rem' }}>
+        <div className="modal-grid-responsive">
           {/* Galeria */}
           <div>
-            <div style={{ width: '100%', height: '360px', borderRadius: 'var(--radius-md)', overflow: 'hidden', background: '#F8FAFC', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '100%', height: '320px', borderRadius: 'var(--radius-md)', overflow: 'hidden', background: '#F8FAFC', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <img src={fotoExibida} alt={produtoModal.nome} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
 
