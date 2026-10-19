@@ -48,8 +48,8 @@ export const Footer: React.FC<FooterProps> = ({ navegarPara }) => {
 
           <div>
             <h4 style={{ color: '#FFFFFF', marginBottom: '1.25rem' }}>Horários da Loja</h4>
-            <p style={{ fontSize: '0.9rem', marginBottom: '0.5rem', color: '#CBD5E1' }}>Segunda a Sexta: 08h às 18h</p>
-            <p style={{ fontSize: '0.9rem', marginBottom: '1rem', color: '#CBD5E1' }}>Sábados: 08h às 13h</p>
+            <p style={{ fontSize: '0.9rem', marginBottom: '0.5rem', color: '#CBD5E1' }}>Segunda a Sexta: 08h às 17h</p>
+            <p style={{ fontSize: '0.9rem', marginBottom: '1rem', color: '#CBD5E1' }}>Sábados: 08h às 12h</p>
             <div style={{ fontSize: '0.85rem', color: 'var(--color-gold)' }}>
               📍 Localização no Centro de Maracanaú
             </div>

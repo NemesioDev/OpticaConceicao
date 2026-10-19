@@ -40,7 +40,7 @@ As configurações estão centralizadas no arquivo `.env`:
 ## 📍 Localização & Contato Oficial
 - **Endereço:** Rua Capitão Valdemar de Lima, 116 C, Centro, Maracanaú - CE
 - **WhatsApp Oficial:** +55 85 8822-0984
-- **Horário de Atendimento:** Segunda a Sexta: 08h às 18h | Sábados: 08h às 13h
+- **Horário de Atendimento:** Segunda a Sexta: 08h às 17h | Sábados: 08h às 12h
 
 ---
 

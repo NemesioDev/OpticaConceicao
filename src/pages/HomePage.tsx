@@ -166,7 +166,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navegarPara }) => {
               </p>
               <p style={{ marginBottom: '1rem', color: 'var(--color-text-muted)' }}>
                 <strong>⏰ Horários:</strong><br />
-                Segunda a Sexta: 08h às 18h | Sábados: 08h às 13h
+                Segunda a Sexta: 08h às 17h | Sábados: 08h às 12h
               </p>
               <p style={{ marginBottom: '1.75rem', color: 'var(--color-text-muted)' }}>
                 <strong>💬 WhatsApp Oficial:</strong><br />
