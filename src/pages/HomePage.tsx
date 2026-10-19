@@ -145,7 +145,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navegarPara }) => {
             <span className="subheading-gold" style={{ color: 'var(--color-gold)' }}>Saúde Visual em Primeiro Lugar</span>
             <h2 style={{ color: '#FFFFFF', fontSize: '2.2rem', marginBottom: '1rem' }}>Agende seu Exame de Vista com Especialista</h2>
             <p style={{ color: '#CBD5E1', fontSize: '1.05rem', marginBottom: '2rem', maxWidth: '650px', lineHeight: 1.7 }}>
-              Realizamos avaliação computadorizada no Centro de Maracanaú. Conte com atendimento humanizado e receba a indicação ideal para o seu grau.
+              Realizamos atendimento humanizado e cuidadoso no Centro de Maracanaú. Agende seu exame de vista com especialista e receba a indicação ideal para o seu grau e conforto visual.
             </p>
             <a 
               href="https://wa.me/558588220984?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20exame%20de%20vista%20na%20%C3%93ptica%20Concei%C3%A7%C3%A3o%20em%20Maracana%C3%BA."
