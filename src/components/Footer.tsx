@@ -1,11 +1,26 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { LOGO_URL } from '../lib/supabase';
 
 interface FooterProps {
-  navegarPara: (pagina: string) => void;
+  navegarPara?: (pagina: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ navegarPara }) => {
+  const navigate = useNavigate();
+
+  const handleNav = (pagina: string) => {
+    if (navegarPara) {
+      navegarPara(pagina);
+    } else {
+      if (pagina === 'home') navigate('/');
+      else if (pagina === 'catalogo') navigate('/catalogo');
+      else if (pagina === 'admin') navigate('/admin');
+      else navigate(`/${pagina}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="container">
@@ -29,9 +44,9 @@ export const Footer: React.FC<FooterProps> = ({ navegarPara }) => {
           <div>
             <h4 style={{ color: '#FFFFFF', marginBottom: '1.25rem' }}>Navegação</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <button onClick={() => navegarPara('home')} className="top-bar-item">Página Inicial</button>
-              <button onClick={() => navegarPara('catalogo')} className="top-bar-item">Catálogo Completo</button>
-              <button onClick={() => navegarPara('admin')} className="top-bar-item">Painel do Lojista</button>
+              <button onClick={() => handleNav('home')} className="top-bar-item">Página Inicial</button>
+              <button onClick={() => handleNav('catalogo')} className="top-bar-item">Catálogo Completo</button>
+              <button onClick={() => handleNav('admin')} className="top-bar-item">Painel do Lojista</button>
             </div>
           </div>
 

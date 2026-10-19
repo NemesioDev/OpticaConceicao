@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCatalog } from '../context/CatalogContext';
 import { Produto } from '../types/produto';
 import { AdminProductModal } from '../components/AdminProductModal';
 import { LOGO_URL } from '../lib/supabase';
 
 interface AdminPageProps {
-  navegarPara: (pagina: string) => void;
+  navegarPara?: (pagina: string) => void;
 }
 
 export const AdminPage: React.FC<AdminPageProps> = ({ navegarPara }) => {
+  const navigate = useNavigate();
+  const handleNav = (pagina: string) => {
+    if (navegarPara) {
+      navegarPara(pagina);
+    } else {
+      if (pagina === 'catalogo') navigate('/catalogo');
+      else if (pagina === 'home') navigate('/');
+      else navigate(`/${pagina}`);
+    }
+  };
   const { 
     produtos, 
     estatisticas, 
@@ -83,13 +94,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({ navegarPara }) => {
             👓 Gerenciar Catálogo
           </button>
           <button 
-            onClick={() => navegarPara('catalogo')}
+            onClick={() => handleNav('catalogo')}
             style={{ width: '100%', padding: '0.85rem 1.5rem', background: 'none', border: 'none', color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', textAlign: 'left', fontSize: '0.9rem' }}
           >
             👁️ Ver Catálogo Público ↗
           </button>
           <button 
-            onClick={() => navegarPara('home')}
+            onClick={() => handleNav('home')}
             style={{ width: '100%', padding: '0.85rem 1.5rem', background: 'none', border: 'none', color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', textAlign: 'left', fontSize: '0.9rem' }}
           >
             🌐 Ver Site Oficial ↗
@@ -111,7 +122,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ navegarPara }) => {
           <button 
             onClick={() => {
               logoutAdmin();
-              navegarPara('home');
+              handleNav('home');
             }}
             className="btn btn-dark btn-sm"
             style={{ width: '100%', background: 'rgba(255,255,255,0.08)' }}

@@ -1,13 +1,26 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCatalog } from '../context/CatalogContext';
 import { ProductCard } from '../components/ProductCard';
 
 interface HomePageProps {
-  navegarPara: (pagina: string, param?: string) => void;
+  navegarPara?: (pagina: string, param?: string) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ navegarPara }) => {
   const { produtos } = useCatalog();
+  const navigate = useNavigate();
+
+  const handleNavegacao = (pagina: string, param?: string) => {
+    if (navegarPara) {
+      navegarPara(pagina, param);
+    } else {
+      if (pagina === 'catalogo') navigate(param ? `/catalogo?categoria=${param}` : '/catalogo');
+      else if (pagina === 'home') navigate('/');
+      else navigate(`/${pagina}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const produtosDestaque = produtos
     .filter(p => p.ativo && p.destaque)
@@ -31,7 +44,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navegarPara }) => {
                 Curadoria de grifes internacionais e armações artesanais no Centro de Maracanaú. Descubra a armação ideal com assessoria de especialistas.
               </p>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                <button onClick={() => navegarPara('catalogo')} className="btn btn-gold">
+                <button onClick={() => handleNavegacao('catalogo')} className="btn btn-gold">
                   Explorar Catálogo Digital →
                 </button>
                 <a 
@@ -73,7 +86,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navegarPara }) => {
             <div 
               className="product-card" 
               style={{ cursor: 'pointer', padding: '2rem', height: '240px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', background: 'linear-gradient(135deg, #091533, #1A3B8B)', color: '#FFFFFF' }}
-              onClick={() => navegarPara('catalogo', 'Grau')}
+              onClick={() => handleNavegacao('catalogo', 'Grau')}
             >
               <h3 style={{ color: '#FFFFFF', fontSize: '1.5rem', marginBottom: '0.5rem' }}>Armações de Grau</h3>
               <p style={{ color: '#CBD5E1', fontSize: '0.85rem' }}>Modelos leves em acetato e titânio para o dia a dia.</p>
@@ -82,7 +95,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navegarPara }) => {
             <div 
               className="product-card" 
               style={{ cursor: 'pointer', padding: '2rem', height: '240px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', background: 'linear-gradient(135deg, #1A3B8B, #244AA8)', color: '#FFFFFF' }}
-              onClick={() => navegarPara('catalogo', 'Sol')}
+              onClick={() => handleNavegacao('catalogo', 'Sol')}
             >
               <h3 style={{ color: '#FFFFFF', fontSize: '1.5rem', marginBottom: '0.5rem' }}>Óculos de Sol</h3>
               <p style={{ color: '#CBD5E1', fontSize: '0.85rem' }}>Proteção UV400 e lentes polarizadas de alta definição.</p>
@@ -91,7 +104,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navegarPara }) => {
             <div 
               className="product-card" 
               style={{ cursor: 'pointer', padding: '2rem', height: '240px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', background: 'linear-gradient(135deg, #0D1E46, #162C66)', color: '#FFFFFF' }}
-              onClick={() => navegarPara('catalogo', 'Infantil')}
+              onClick={() => handleNavegacao('catalogo', 'Infantil')}
             >
               <h3 style={{ color: '#FFFFFF', fontSize: '1.5rem', marginBottom: '0.5rem' }}>Linha Infantil</h3>
               <p style={{ color: '#CBD5E1', fontSize: '0.85rem' }}>Armações super flexíveis e anatômicas para crianças.</p>
@@ -112,7 +125,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navegarPara }) => {
               </p>
             </div>
 
-            <button onClick={() => navegarPara('catalogo')} className="btn btn-outline-gold">
+            <button onClick={() => handleNavegacao('catalogo')} className="btn btn-outline-gold">
               Ver Todo o Catálogo ({produtos.length} modelos) →
             </button>
           </div>

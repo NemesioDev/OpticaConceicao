@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { LOGO_URL } from '../lib/supabase';
 
 interface HeaderProps {
-  paginaAtual: string;
-  navegarPara: (pagina: string, params?: string) => void;
+  paginaAtual?: string;
+  navegarPara?: (pagina: string, params?: string) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ paginaAtual, navegarPara }) => {
   const [menuAberto, setMenuAberto] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const rotaAtual = paginaAtual || (location.pathname === '/' ? 'home' : location.pathname.replace('/', ''));
 
   const handleNavegacao = (pagina: string, param?: string) => {
-    navegarPara(pagina, param);
+    if (navegarPara) {
+      navegarPara(pagina, param);
+    } else {
+      if (pagina === 'home') navigate('/');
+      else if (pagina === 'catalogo') navigate(param ? `/catalogo?categoria=${param}` : '/catalogo');
+      else if (pagina === 'admin') navigate('/admin');
+      else navigate(`/${pagina}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     setMenuAberto(false);
   };
 
@@ -63,7 +76,7 @@ export const Header: React.FC<HeaderProps> = ({ paginaAtual, navegarPara }) => {
             <ul className="nav-menu">
               <li>
                 <button 
-                  className={`nav-link ${paginaAtual === 'home' ? 'active' : ''}`}
+                  className={`nav-link ${rotaAtual === 'home' ? 'active' : ''}`}
                   onClick={() => handleNavegacao('home')}
                 >
                   Início
@@ -71,7 +84,7 @@ export const Header: React.FC<HeaderProps> = ({ paginaAtual, navegarPara }) => {
               </li>
               <li>
                 <button 
-                  className={`nav-link ${paginaAtual === 'catalogo' ? 'active' : ''}`}
+                  className={`nav-link ${rotaAtual === 'catalogo' ? 'active' : ''}`}
                   onClick={() => handleNavegacao('catalogo')}
                 >
                   Catálogo Completo
@@ -135,13 +148,13 @@ export const Header: React.FC<HeaderProps> = ({ paginaAtual, navegarPara }) => {
         {menuAberto && (
           <div className="mobile-nav-drawer">
             <button 
-              className={`mobile-nav-link ${paginaAtual === 'home' ? 'active' : ''}`}
+              className={`mobile-nav-link ${rotaAtual === 'home' ? 'active' : ''}`}
               onClick={() => handleNavegacao('home')}
             >
               🏠 Início
             </button>
             <button 
-              className={`mobile-nav-link ${paginaAtual === 'catalogo' ? 'active' : ''}`}
+              className={`mobile-nav-link ${rotaAtual === 'catalogo' ? 'active' : ''}`}
               onClick={() => handleNavegacao('catalogo')}
             >
               👓 Catálogo Completo

@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCatalog } from '../context/CatalogContext';
 import { LOGO_URL } from '../lib/supabase';
 
 interface LoginPageProps {
-  navegarPara: (pagina: string) => void;
+  navegarPara?: (pagina: string) => void;
 }
 
 export const LoginPage: React.FC<LoginPageProps> = ({ navegarPara }) => {
   const { loginAdmin } = useCatalog();
+  const navigate = useNavigate();
+
+  const handleNav = (pagina: string) => {
+    if (navegarPara) {
+      navegarPara(pagina);
+    } else {
+      if (pagina === 'admin') navigate('/admin');
+      else if (pagina === 'home') navigate('/');
+      else navigate(`/${pagina}`);
+    }
+  };
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const [erroMsg, setErroMsg] = useState<string | null>(null);
@@ -22,7 +34,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navegarPara }) => {
     setLoading(false);
 
     if (resultado.success) {
-      navegarPara('admin');
+      handleNav('admin');
     } else {
       setErroMsg(resultado.error || 'Usuário ou senha inválidos.');
     }
@@ -87,7 +99,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navegarPara }) => {
 
           <button 
             type="button"
-            onClick={() => navegarPara('home')}
+            onClick={() => handleNav('home')}
             style={{ background: 'none', border: 'none', fontSize: '0.85rem', color: 'var(--color-text-muted)', cursor: 'pointer', textDecoration: 'none' }}
           >
             ← Voltar para o Site Principal

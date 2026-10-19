@@ -16,6 +16,7 @@ interface CatalogContextType {
   toggleDestaque: (id: string) => Promise<void>;
   resetarCatalogo: () => Promise<void>;
   isAdmin: boolean;
+  carregandoAuth: boolean;
   user: User | null;
   loginAdmin: (userOrEmail: string, pass: string) => Promise<{ success: boolean; error?: string }>;
   logoutAdmin: () => Promise<void>;
@@ -52,6 +53,14 @@ function mapRowToProduto(row: any): Produto {
 export const CatalogProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [produtos, setProdutos] = useState<Produto[]>(PRODUTOS_INICIAIS);
   const [carregando, setCarregando] = useState<boolean>(true);
+  const [carregandoAuth, setCarregandoAuth] = useState<boolean>(true);
+  const [isAdminLocal, setIsAdminLocal] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('optica_admin_logged') === 'true';
+    } catch {
+      return false;
+    }
+  });
   const [user, setUser] = useState<User | null>(null);
   const [produtoModal, setProdutoModal] = useState<Produto | null>(null);
 
@@ -59,10 +68,24 @@ export const CatalogProvider: React.FC<{ children: React.ReactNode }> = ({ child
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        localStorage.setItem('optica_admin_logged', 'true');
+        setIsAdminLocal(true);
+      }
+      setCarregandoAuth(false);
+    }).catch(() => {
+      setCarregandoAuth(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        localStorage.setItem('optica_admin_logged', 'true');
+        setIsAdminLocal(true);
+      } else if (_event === 'SIGNED_OUT') {
+        localStorage.removeItem('optica_admin_logged');
+        setIsAdminLocal(false);
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -271,12 +294,16 @@ export const CatalogProvider: React.FC<{ children: React.ReactNode }> = ({ child
         console.warn('Erro de autenticação Supabase:', error.message);
         // Fallback para credenciais padrão se estiver offline
         if ((userOrEmail === 'admin' || userOrEmail === 'admin@opticaconceicao.com.br') && pass === 'admin123') {
+          localStorage.setItem('optica_admin_logged', 'true');
+          setIsAdminLocal(true);
           return { success: true };
         }
         return { success: false, error: 'Credenciais inválidas. Verifique seu e-mail e senha.' };
       }
 
       setUser(data.user);
+      localStorage.setItem('optica_admin_logged', 'true');
+      setIsAdminLocal(true);
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err.message || 'Falha de conexão com o servidor' };
@@ -285,8 +312,15 @@ export const CatalogProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   // Logout via Supabase Auth
   const logoutAdmin = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
+    try {
+      localStorage.removeItem('optica_admin_logged');
+      setIsAdminLocal(false);
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.warn('Erro ao deslogar do Supabase:', err);
+    } finally {
+      setUser(null);
+    }
   };
 
   const marcasDisponiveis = Array.from(new Set(produtos.map(p => p.marca))).sort();
@@ -310,7 +344,8 @@ export const CatalogProvider: React.FC<{ children: React.ReactNode }> = ({ child
       removerProduto,
       toggleDestaque,
       resetarCatalogo,
-      isAdmin: Boolean(user),
+      isAdmin: Boolean(user) || isAdminLocal,
+      carregandoAuth,
       user,
       loginAdmin,
       logoutAdmin,

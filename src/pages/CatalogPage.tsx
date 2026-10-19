@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useCatalog } from '../context/CatalogContext';
 import { ProductCard } from '../components/ProductCard';
 
@@ -8,13 +9,27 @@ interface CatalogPageProps {
 
 export const CatalogPage: React.FC<CatalogPageProps> = ({ categoriaInicial = 'todos' }) => {
   const { produtos, marcasDisponiveis } = useCatalog();
+  const [searchParams] = useSearchParams();
+  const categoriaDaUrl = searchParams.get('categoria') || categoriaInicial;
+  const formatoDaUrl = searchParams.get('formato') || 'todos';
 
   const [busca, setBusca] = useState('');
-  const [categoria, setCategoria] = useState(categoriaInicial);
-  const [formato, setFormato] = useState('todos');
+  const [categoria, setCategoria] = useState(categoriaDaUrl);
+  const [formato, setFormato] = useState(formatoDaUrl);
   const [marca, setMarca] = useState('todos');
   const [genero, setGenero] = useState('todos');
   const [ordenacao, setOrdenacao] = useState<'relevancia' | 'preco-asc' | 'preco-desc' | 'nome'>('relevancia');
+
+  useEffect(() => {
+    const cat = searchParams.get('categoria');
+    if (cat) {
+      setCategoria(cat);
+    }
+    const fmt = searchParams.get('formato');
+    if (fmt) {
+      setFormato(fmt);
+    }
+  }, [searchParams]);
 
   const formatosDisponiveis = ['Redondo', 'Quadrado', 'Aviador', 'Gatinho', 'Hexagonal', 'Retangular'];
 
