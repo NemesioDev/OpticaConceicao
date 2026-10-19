@@ -20,18 +20,13 @@
 
     <form id="admin-login-form">
       <div class="form-group">
-        <label for="login-user" class="form-label">Usuário</label>
-        <input type="text" id="login-user" class="form-control" placeholder="admin" value="admin" required>
+        <label for="login-user" class="form-label">Usuário ou E-mail</label>
+        <input type="text" id="login-user" class="form-control" placeholder="Digite seu usuário ou e-mail" required>
       </div>
 
       <div class="form-group">
         <label for="login-password" class="form-label">Senha de Acesso</label>
-        <input type="password" id="login-password" class="form-control" placeholder="••••••••" value="admin123" required>
-      </div>
-
-      <div style="background: rgba(197, 160, 89, 0.1); border: 1px dashed var(--color-gold); padding: 0.65rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.775rem; color: var(--color-primary); text-align: left;">
-        <strong>Credenciais Padrão:</strong><br>
-        Usuário: <code>admin</code> | Senha: <code>admin123</code>
+        <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
       </div>
 
       <button type="submit" class="btn btn-gold" style="width: 100%; margin-bottom: 1rem;">

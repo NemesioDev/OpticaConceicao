@@ -8,8 +8,8 @@ interface LoginPageProps {
 
 export const LoginPage: React.FC<LoginPageProps> = ({ navegarPara }) => {
   const { loginAdmin } = useCatalog();
-  const [usuario, setUsuario] = useState('admin@opticaconceicao.com.br');
-  const [senha, setSenha] = useState('admin123');
+  const [usuario, setUsuario] = useState('');
+  const [senha, setSenha] = useState('');
   const [erroMsg, setErroMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -53,18 +53,20 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navegarPara }) => {
         <form onSubmit={handleLogin}>
           <div style={{ marginBottom: '1.25rem', textAlign: 'left' }}>
             <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
-              Usuário
+              E-mail ou Usuário
             </label>
             <input 
               type="text" 
               value={usuario}
               onChange={e => setUsuario(e.target.value)}
+              placeholder="Digite seu e-mail ou usuário"
+              autoComplete="username"
               required
               style={{ width: '100%', padding: '0.75rem 1rem', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', outline: 'none' }}
             />
           </div>
 
-          <div style={{ marginBottom: '1.25rem', textAlign: 'left' }}>
+          <div style={{ marginBottom: '1.5rem', textAlign: 'left' }}>
             <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-primary-dark)', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
               Senha de Acesso
             </label>
@@ -72,18 +74,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navegarPara }) => {
               type="password" 
               value={senha}
               onChange={e => setSenha(e.target.value)}
+              placeholder="Digite sua senha"
+              autoComplete="current-password"
               required
               style={{ width: '100%', padding: '0.75rem 1rem', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)', outline: 'none' }}
             />
           </div>
 
-          <div style={{ background: 'rgba(245, 197, 68, 0.15)', border: '1px dashed var(--color-gold)', padding: '0.65rem', borderRadius: 'var(--radius-sm)', marginBottom: '1.5rem', fontSize: '0.775rem', color: 'var(--color-primary-dark)', textAlign: 'left' }}>
-            <strong>Credenciais Padrão:</strong><br />
-            Usuário: <code>admin</code> | Senha: <code>admin123</code>
-          </div>
-
           <button type="submit" className="btn btn-gold" style={{ width: '100%', marginBottom: '1rem' }} disabled={loading}>
-            {loading ? 'Autenticando no Supabase...' : 'Entrar no Painel →'}
+            {loading ? 'Autenticando...' : 'Entrar no Painel →'}
           </button>
 
           <button 
